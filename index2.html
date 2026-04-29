@@ -48,7 +48,10 @@
 <div class="main-container">
     <div class="join-box">
         <h2 style="color: var(--xv-orange);">UNLOCK ACCESS (KSH 100)</h2>
-        <p style="font-size: 13px; color: #888;">You will receive an M-Pesa STK push to complete payment. After completing your payment your WhatsApp number will automatically be added to our WhatsApp group.</p>
+        <p style="font-size: 13px; color: #888;">
+            You will receive an M-Pesa STK push to complete payment. After completing your payment 
+            <span id="whatsapp-display">Your WhatsApp number</span> will automatically be added to our WhatsApp group.
+        </p>
 
         <div class="input-group">
             <label>M-Pesa Name</label>
@@ -66,6 +69,14 @@
 </div>
 
 <script>
+    // Logic to retrieve and display WhatsApp number from Local Storage
+    const whatsappDisplay = document.getElementById('whatsapp-display');
+    const storedNumber = localStorage.getItem('number');
+
+    if (storedNumber) {
+        whatsappDisplay.innerHTML = `Your WhatsApp number (<b>${storedNumber}</b>)`;
+    }
+
     const phoneInput = document.getElementById('phone_num');
     const nameInput = document.getElementById('mpesa_name');
     const payBtn = document.getElementById('pay-btn');
