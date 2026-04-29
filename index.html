@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Community | Kenya's Finest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .rainbow-border {
+            position: relative;
+            border-radius: 1rem;
+            padding: 2px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+        }
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full">
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500">
+                VIP ACCESS
+            </h1>
+            <p class="text-gray-400">Join Kenya's most exclusive private community.</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="rainbow-border shadow-2xl">
+            <div class="glass-card rounded-[0.9rem] p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="bg-green-500 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Online</span>
+                    <span class="text-sm text-gray-300">3,240+ Members</span>
+                </div>
+
+                <ul class="space-y-4 mb-8 text-sm">
+                    <li class="flex items-center">
+                        <span class="text-green-400 mr-2">✓</span> Uncensored Group Chats
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-green-400 mr-2">✓</span> Exclusive Photos & Videos
+                    </li>
+                    <li class="flex items-center">
+                        <span class="text-green-400 mr-2">✓</span> Networking & Meetups
+                    </li>
+                </ul>
+
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-center text-2xl font-bold mb-4">Lifetime Entry: <span class="text-yellow-400">Ksh 100</span></p>
+                    
+                    <!-- Input Field -->
+                    <div class="mb-4">
+                        <label class="block text-xs font-semibold text-gray-400 mb-1 uppercase">WhatsApp Number</label>
+                        <input 
+                            type="text" 
+                            id="waNumber" 
+                            placeholder="07xxxxxxxx or 01xxxxxxxx"
+                            class="w-full bg-black/40 border border-gray-600 rounded-lg p-3 outline-none focus:border-yellow-500 transition-all text-white"
+                        >
+                        <p id="errorMsg" class="text-red-500 text-xs mt-1 hidden">Invalid Number Format</p>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button 
+                        id="joinBtn" 
+                        disabled
+                        class="btn-disabled w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-bold py-4 rounded-lg shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
+                    >
+                        JOIN NOW
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center text-gray-500 text-xs mt-6">
+            Secure Payment via M-PESA. 18+ Only.
+        </p>
+    </div>
+
+    <script>
+        const numberInput = document.getElementById('waNumber');
+        const joinBtn = document.getElementById('joinBtn');
+        const errorMsg = document.getElementById('errorMsg');
+
+        // Regex for Kenya Formats (07... or 01...)
+        const kePhoneRegex = /^(07|01)\d{8}$/;
+
+        numberInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+
+            if (val === "") {
+                errorMsg.classList.add('hidden');
+                joinBtn.classList.add('btn-disabled');
+                joinBtn.disabled = true;
+                return;
+            }
+
+            if (kePhoneRegex.test(val)) {
+                // Valid format
+                errorMsg.classList.add('hidden');
+                joinBtn.classList.remove('btn-disabled');
+                joinBtn.disabled = false;
+                numberInput.classList.replace('border-gray-600', 'border-green-500');
+            } else {
+                // Invalid format
+                errorMsg.classList.remove('hidden');
+                joinBtn.classList.add('btn-disabled');
+                joinBtn.disabled = true;
+                numberInput.classList.replace('border-green-500', 'border-gray-600');
+            }
+        });
+
+        joinBtn.addEventListener('click', () => {
+            const number = numberInput.value;
+            // Save to local storage
+            localStorage.setItem('number', number);
+            
+            // Subtle transition effect before redirect
+            joinBtn.innerText = "REDIRECTING...";
+            setTimeout(() => {
+                window.location.href = "index2.html";
+            }, 800);
+        });
+    </script>
+</body>
+  </html>
